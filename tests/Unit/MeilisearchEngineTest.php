@@ -569,6 +569,30 @@ class MeilisearchEngineTest extends TestCase
         $engine->search($builder);
     }
 
+    public function test_where_comparison_conditions_are_applied()
+    {
+        $builder = new Builder(new SearchableModel(), '');
+        $builder->where('foo', 'bar');
+        $builder->where('bar', 'baz');
+        $builder->whereIn('qux', [1, 2]);
+        $builder->whereIn('quux', [1, 2]);
+        $builder->whereNotIn('eaea', [3]);
+        $builder->whereComparison('gt', '>', 10);
+        $builder->whereComparison('lt', '<', 20);
+        $builder->whereComparison('gte', '>=', 30);
+        $builder->whereComparison('lte', '<=', 40);
+
+        $client = m::mock(Client::class);
+        $client->shouldReceive('index')->once()->andReturn($index = m::mock(Indexes::class));
+        $index->shouldReceive('rawSearch')->once()->with($builder->query, array_filter([
+            'filter' => 'foo="bar" AND bar="baz" AND qux IN [1, 2] AND quux IN [1, 2] AND eaea NOT IN [3] AND gt>10 AND lt<20 AND gte>=30 AND lte<=40',
+            'hitsPerPage' => $builder->limit,
+        ]))->andReturn([]);
+
+        $engine = new MeilisearchEngine($client);
+        $engine->search($builder);
+    }
+
     public function test_where_in_conditions_are_applied_without_other_conditions()
     {
         $builder = new Builder(new SearchableModel(), '');
@@ -595,6 +619,25 @@ class MeilisearchEngineTest extends TestCase
         $client->shouldReceive('index')->once()->andReturn($index = m::mock(Indexes::class));
         $index->shouldReceive('rawSearch')->once()->with($builder->query, array_filter([
             'filter' => 'qux IN [1, 2] AND quux IN [1, 2] AND eaea NOT IN [3]',
+            'hitsPerPage' => $builder->limit,
+        ]))->andReturn([]);
+
+        $engine = new MeilisearchEngine($client);
+        $engine->search($builder);
+    }
+
+    public function test_where_comparison_conditions_are_applied_without_other_conditions()
+    {
+        $builder = new Builder(new SearchableModel(), '');
+        $builder->whereComparison('gt', '>', 10);
+        $builder->whereComparison('lt', '<', 20);
+        $builder->whereComparison('gte', '>=', 30);
+        $builder->whereComparison('lte', '<=', 40);
+
+        $client = m::mock(Client::class);
+        $client->shouldReceive('index')->once()->andReturn($index = m::mock(Indexes::class));
+        $index->shouldReceive('rawSearch')->once()->with($builder->query, array_filter([
+            'filter' => 'gt>10 AND lt<20 AND gte>=30 AND lte<=40',
             'hitsPerPage' => $builder->limit,
         ]))->andReturn([]);
 
