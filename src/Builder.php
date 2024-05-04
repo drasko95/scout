@@ -72,6 +72,13 @@ class Builder
     public $whereNotIns = [];
 
     /**
+     * The "where" comparisons added to the query.
+     *
+     * @var array
+     */
+    public $whereComparisons = [];
+
+    /**
      * The "limit" that should be applied to the search.
      *
      * @var int
@@ -163,6 +170,13 @@ class Builder
     public function whereNotIn($field, array $values)
     {
         $this->whereNotIns[$field] = $values;
+
+        return $this;
+    }
+
+    public function whereComparison($field, $operator, $value)
+    {
+        $this->whereComparisons[] = compact('field', 'operator', 'value');
 
         return $this;
     }
