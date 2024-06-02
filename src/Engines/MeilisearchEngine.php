@@ -213,6 +213,12 @@ class MeilisearchEngine extends Engine
         return $filters->values()->implode(' AND ');
     }
 
+    /**
+     * Format the value for the filter depending on its type.
+     *
+     * @param  mixed  $value
+     * @return string
+     */
     protected function formatValue($value)
     {
         if (is_bool($value)) {
