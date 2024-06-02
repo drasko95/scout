@@ -174,6 +174,9 @@ class AlgoliaEngine extends Engine
             return collect($values)->map(function ($value) use ($key) {
                 return $key.'='.$value;
             })->all();
+        })->values())
+        ->merge(collect($builder->whereComparisons)->map(function ($comparison) {
+            return $comparison['field'].$comparison['operator'].$comparison['value'];
         })->values())->values()->all();
     }
 

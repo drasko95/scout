@@ -177,13 +177,7 @@ class MeilisearchEngine extends Engine
     protected function filters(Builder $builder)
     {
         $filters = collect($builder->wheres)->map(function ($value, $key) {
-            if (is_bool($value)) {
-                return sprintf('%s=%s', $key, $value ? 'true' : 'false');
-            }
-
-            return is_numeric($value)
-                ? sprintf('%s=%s', $key, $value)
-                : sprintf('%s="%s"', $key, $value);
+            return sprintf('%s=%s', $key, $this->formatValue($value));
         });
 
         $whereInOperators = [
@@ -207,7 +201,31 @@ class MeilisearchEngine extends Engine
             }
         }
 
+        collect($builder->whereComparisons)->each(function ($comparison) use ($filters) {
+            $filters->push(sprintf(
+                '%s%s%s',
+                $comparison['field'],
+                $comparison['operator'],
+                $this->formatValue($comparison['value']))
+            );
+        });
+
         return $filters->values()->implode(' AND ');
+    }
+
+    /**
+     * Format the value for the filter depending on its type.
+     *
+     * @param  mixed  $value
+     * @return string
+     */
+    protected function formatValue($value)
+    {
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        return is_numeric($value) ? $value : sprintf('"%s"', $value);
     }
 
     /**
