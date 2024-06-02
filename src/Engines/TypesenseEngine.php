@@ -295,13 +295,13 @@ class TypesenseEngine extends Engine
             ->values()
             ->implode(' && ');
 
-        $whereComparisonFilter = collect($builder->whereComparisons)
-            ->map(fn ($comparison) => sprintf('%s:%s%s', $comparison['field'], $comparison['operator'], $comparison['value']))
+        $whereInFilter = collect($builder->whereIns)
+            ->map(fn ($value, $key) => $this->parseWhereInFilter($value, $key))
             ->values()
             ->implode(' && ');
 
-        $whereInFilter = collect($builder->whereIns)
-            ->map(fn ($value, $key) => $this->parseWhereInFilter($value, $key))
+        $whereComparisonFilter = collect($builder->whereComparisons)
+            ->map(fn ($comparison) => sprintf('%s:%s%s', $comparison['field'], $comparison['operator'], $comparison['value']))
             ->values()
             ->implode(' && ');
 
