@@ -166,19 +166,18 @@ class AlgoliaEngine extends Engine
             return $key.'='.$value;
         })->values();
 
-        return $wheres
-            ->merge(collect($builder->whereIns)->map(function ($values, $key) {
-                if (empty($values)) {
-                    return '0=1';
-                }
+        return $wheres->merge(collect($builder->whereIns)->map(function ($values, $key) {
+            if (empty($values)) {
+                return '0=1';
+            }
 
-                return collect($values)->map(function ($value) use ($key) {
-                    return $key . '=' . $value;
-                })->all();
-            })->values())
-            ->merge(collect($builder->whereComparisons)->map(function ($comparison) {
-                return $comparison['field'] . $comparison['operator'] . $comparison['value'];
-            })->values())->values()->all();
+            return collect($values)->map(function ($value) use ($key) {
+                return $key.'='.$value;
+            })->all();
+        })->values())
+        ->merge(collect($builder->whereComparisons)->map(function ($comparison) {
+            return $comparison['field'] . $comparison['operator'] . $comparison['value'];
+        })->values())->values()->all();
     }
 
     /**

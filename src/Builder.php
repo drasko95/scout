@@ -174,6 +174,14 @@ class Builder
         return $this;
     }
 
+    /**
+     * Add a "where comparison" constraint to the search query.
+     *
+     * @param  string  $field
+     * @param  string  $operator
+     * @param  mixed  $value
+     * @return $this
+     */
     public function whereComparison($field, $operator, $value)
     {
         $this->whereComparisons[] = compact('field', 'operator', 'value');
