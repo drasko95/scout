@@ -1,6 +1,39 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/scout/compare/v10.9.0...10.x)
+## [Unreleased](https://github.com/laravel/scout/compare/v10.11.4...10.x)
+
+## [v10.11.4](https://github.com/laravel/scout/compare/v10.11.3...v10.11.4) - 2024-10-01
+
+* Fix Typesense pagination issue when using query callback by [@tharropoulos](https://github.com/tharropoulos) in https://github.com/laravel/scout/pull/867
+* Update logo to support dark/light theme by [@milewski](https://github.com/milewski) in https://github.com/laravel/scout/pull/869
+
+## [v10.11.3](https://github.com/laravel/scout/compare/v10.11.2...v10.11.3) - 2024-09-11
+
+* [Typesense] Fix Paginate Function Returning Limited Records in Laravel Scout with Typesense Engine (#824) by [@tharropoulos](https://github.com/tharropoulos) in https://github.com/laravel/scout/pull/858
+
+## [v10.11.2](https://github.com/laravel/scout/compare/v10.11.1...v10.11.2) - 2024-09-03
+
+* [10.x] Add Generic Docblocks To Builder by [@Magnesium38](https://github.com/Magnesium38) in https://github.com/laravel/scout/pull/857
+
+## [v10.11.1](https://github.com/laravel/scout/compare/v10.11.0...v10.11.1) - 2024-08-06
+
+* refactor(typesense): remove unused exists checks by [@saibotk](https://github.com/saibotk) in https://github.com/laravel/scout/pull/847
+
+## [v10.11.0](https://github.com/laravel/scout/compare/v10.10.2...v10.11.0) - 2024-07-30
+
+* [10.x] Allow setting custom scout builder class by [@gdebrauwer](https://github.com/gdebrauwer) in https://github.com/laravel/scout/pull/852
+
+## [v10.10.2](https://github.com/laravel/scout/compare/v10.10.1...v10.10.2) - 2024-07-23
+
+* [Typesense]  Sync server state in getOrCreateCollectionFromModel #845 by [@tharropoulos](https://github.com/tharropoulos) in https://github.com/laravel/scout/pull/846
+
+## [v10.10.1](https://github.com/laravel/scout/compare/v10.10.0...v10.10.1) - 2024-07-02
+
+* [10.x] Get the key name through getScoutKeyName() on the Database engine by [@antonioribeiro](https://github.com/antonioribeiro) in https://github.com/laravel/scout/pull/843
+
+## [v10.10.0](https://github.com/laravel/scout/compare/v10.9.0...v10.10.0) - 2024-06-18
+
+* Added possibility to version indexes.  by [@Boorinio](https://github.com/Boorinio) in https://github.com/laravel/scout/pull/836
 
 ## [v10.9.0](https://github.com/laravel/scout/compare/v10.8.6...v10.9.0) - 2024-05-07
 
