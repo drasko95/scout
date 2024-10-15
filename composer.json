@@ -1,16 +1,16 @@
 {
-    "name": "laravel/scout",
+    "name": "drasko95/laravel-scout-extended",
     "description": "Laravel Scout provides a driver based solution to searching your Eloquent models.",
     "keywords": ["algolia", "laravel", "search"],
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel/scout/issues",
-        "source": "https://github.com/laravel/scout"
+        "issues": "https://github.com/drasko95/scout/issues",
+        "source": "https://github.com/drasko95/scout"
     },
     "authors": [
         {
-            "name": "Taylor Otwell",
-            "email": "taylor@laravel.com"
+            "name": "Drasko Radovanovic",
+            "email": "drasko95@gmail.com"
         }
     ],
     "require": {
